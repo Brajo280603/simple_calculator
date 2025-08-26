@@ -2,3 +2,11 @@
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 @import 'konsta/svelte/theme.css';
+
+
+@theme {
+  --color-brand-primary: #007aff;
+    --color-brand-red: #ff0000;
+  --color-brand-green: #00A300 ;
+  --color-brand-yellow: #EC8014;
+}
