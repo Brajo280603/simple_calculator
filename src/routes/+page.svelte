@@ -29,7 +29,7 @@ function isNumeric(n) {
       input_str = input_str.replaceAll("×","*");
       input_str = input_str.replaceAll("−","-");
 
-      console.log(input_str)
+      // console.log(input_str)
 
       let output = eval(input_str)
       return String(output)
@@ -37,24 +37,63 @@ function isNumeric(n) {
 
   function calculate_percent(input_str){
       let last_symbol_index;
+      console.log(input_str)
 
-      for(let i =input_str.length-1;i>=0;i++){
+      for(let i =input_str.length-1;i>=0;i--){
         if(!isNumeric(input_str[i])){
           last_symbol_index = i;
           break;
         }
       }
 
-      let temp_str = input_str.slice(last_symbol_index,input_str.length);
+      console.log(last_symbol_index);
 
-      console.log(temp_str)
+      let temp_str;
+      let nt_str;
+      
+      console.log(input_str[last_symbol_index])
+
+      switch(input_str[last_symbol_index]){
+        case "+":{
+            // console.log(input_str.slice(0,last_symbol_index))
+            let prev_output = eval(input_str.slice(0,last_symbol_index))
+            temp_str = input_str.slice(last_symbol_index+1,input_str.length);
+            temp_str = parseFloat(temp_str)/100
+            let new_output = prev_output * temp_str;
+            nt_str = input_str.slice(0,last_symbol_index+1)+new_output;  
+          break;
+        }
+
+        case "−":{
+            // console.log(input_str.slice(0,last_symbol_index))
+            let prev_output = eval(input_str.slice(0,last_symbol_index))
+            temp_str = input_str.slice(last_symbol_index+1,input_str.length);
+            temp_str = parseFloat(temp_str)/100
+            let new_output = prev_output * temp_str;
+            nt_str = input_str.slice(0,last_symbol_index+1)+new_output;  
+          break;
+        }
+        
+        default:{
+          temp_str = input_str.slice(last_symbol_index+1,input_str.length);
+          temp_str = parseFloat(temp_str)/100
+          nt_str = input_str.slice(0,last_symbol_index+1)+temp_str;     
+        }
+      }
+
+      
+
+
+      console.log(nt_str)
+
+      return nt_str;
   }
   
 
 
   function showNumber (obj){
     console.log(obj);
-    console.log(calc_output);
+    // console.log(calc_output);
     
     switch(obj.value){
       case "clear" :{
@@ -88,7 +127,8 @@ function isNumeric(n) {
 
       case "%":{
 
-        calculate_percent(calc_output)
+        calc_output = calculate_percent(calc_output)
+        break;
       }
 
       default:{
